@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" prefix="og: http://ogp.me/ns#">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<!-- Customized styles by William R.A.D. Funk -->
+<link rel="stylesheet" href="styles.css">
+<script>var frame = 1; var interval;</script>
+</head>
+
+<body>
+	<div id="ui">
+		<label for="framerate">Frame Rate</label>
+		<input type="number" id="framerate" name="framerate" value="20"></input>
+	</div>
+	<div id="context">
+		<div id="frame-1" class="frame active"><img src="images/character_01.png"/></div>
+		<div id="frame-2" class="frame inactive"><img src="images/character_02.png"/></div>
+		<div id="frame-3" class="frame inactive"><img src="images/character_03.png"/></div>
+		<div id="frame-4" class="frame inactive"><img src="images/character_04.png"/></div>
+		<div id="frame-5" class="frame inactive"><img src="images/character_05.png"/></div>
+		<div id="frame-6" class="frame inactive"><img src="images/character_06.png"/></div>
+		<div id="frame-7" class="frame inactive"><img src="images/character_07.png"/></div>
+		<div id="frame-8" class="frame inactive"><img src="images/character_08.png"/></div>
+		<div id="frame-9" class="frame inactive"><img src="images/character_09.png"/></div>
+		<div id="frame-10" class="frame inactive"><img src="images/character_10.png"/></div>
+		<div id="frame-11" class="frame inactive"><img src="images/character_11.png"/></div>
+		<div id="frame-12" class="frame inactive"><img src="images/character_12.png"/></div>
+		<div id="frame-13" class="frame inactive"><img src="images/character_13.png"/></div>
+		<div id="frame-14" class="frame inactive"><img src="images/character_14.png"/></div>
+		<div id="frame-15" class="frame inactive"><img src="images/character_15.png"/></div>
+		<div id="frame-16" class="frame inactive"><img src="images/character_16.png"/></div>
+		<div id="frame-17" class="frame inactive"><img src="images/character_17.png"/></div>
+		<div id="frame-18" class="frame inactive"><img src="images/character_18.png"/></div>
+		<div id="frame-19" class="frame inactive"><img src="images/character_19.png"/></div>
+		<div id="frame-20" class="frame inactive"><img src="images/character_20.png"/></div>
+		<div id="frame-21" class="frame inactive"><img src="images/character_21.png"/></div>
+		<div id="frame-22" class="frame inactive"><img src="images/character_22.png"/></div>
+		<div id="frame-23" class="frame inactive"><img src="images/character_23.png"/></div>
+		<div id="frame-24" class="frame inactive"><img src="images/character_24.png"/></div>
+	</div>
+	<script>
+		document.getElementById("framerate").defaultValue = 20;
+		var fr = document.getElementById("framerate").value;
+		console.log(fr);
+		var frameTime = Math.floor( (1.0 / parseFloat(fr)) * 1000 );
+		document.getElementById("framerate").addEventListener("change", function()
+		{
+			fr = document.getElementById("framerate").value;
+			if(fr <= 0)
+			{
+				fr = 1;
+				document.getElementById("framerate").value = 1;
+			}
+			else if(fr >= 120)
+			{
+				fr = 120;
+				document.getElementById("framerate").value = 120;
+			}
+			console.log(fr);
+			frameTime = Math.floor( (1.0 / parseFloat(fr)) * 1000 );
+			clearInterval(interval);
+			interval = setInterval(function()
+			{
+				if(frame != 1) document.getElementById("frame-" + (frame-1)).style.display = "none";
+				else document.getElementById("frame-24").style.display = "none";
+				document.getElementById("frame-" + (frame)).style.display = "block";
+				frame++;
+				if(frame > 24) frame = 1;
+			}, frameTime);
+		});
+		interval = setInterval(function()
+		{
+			if(frame != 1) document.getElementById("frame-" + (frame-1)).style.display = "none";
+			else document.getElementById("frame-24").style.display = "none";
+			document.getElementById("frame-" + (frame)).style.display = "block";
+			frame++;
+			if(frame > 24) frame = 1;
+		}, frameTime);
+	</script>
+</body>
+</html>
