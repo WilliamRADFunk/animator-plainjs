@@ -18,13 +18,15 @@ label
 	color: #FFFFFF;
 	display: block;
 	font-size: 22px;
+	margin-bottom: 15px;
+	margin-top: 15px;
 	text-align: center;
 	width: 100%;
 }
 #ui
 {
 	width: 400px;
-	min-height: 50px;
+	min-height: 25px;
 	margin-left: auto;
 	margin-right: auto;
 	position: absolute;
@@ -42,7 +44,7 @@ label
 	height: 300px;
 	margin: auto;
 	position: absolute;
-	top: 50px;
+	top: 25px;
 	left: 0;
 	right: 0;
 	bottom: 0;
@@ -53,11 +55,6 @@ label
 	background-position: left top;
 	background-repeat: no-repeat;
 	background-size: auto auto;
-}
-.frame img
-{
-	margin-left: auto;
-	margin-right: auto;
 }
 .active
 {
