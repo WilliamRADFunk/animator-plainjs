@@ -34,11 +34,9 @@ label
 	left: 0;
 	right: 0;
 }
-#framerate
-{
-	width: 100%;
-}
-#num-of-frames
+#framerate,
+#num-of-frames,
+#base-name
 {
 	width: 100%;
 }
@@ -46,7 +44,10 @@ label
 {
 	width: 400px;
 	height: 300px;
-	margin: auto;
+	margin-bottom: auto;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 240px;
 	position: absolute;
 	top: 25px;
 	left: 0;
