@@ -6,8 +6,10 @@
 <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 <!-- Customized styles by William R.A.D. Funk -->
 <link rel="stylesheet" href="styles.css">
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
 <script>
 	var frame = 1;
+	var maxFrames;
 	var interval;
 	var width = 10;
 	var img = new Image();
@@ -21,79 +23,106 @@
 
 <body>
 	<div id="ui">
+		<label for="num-of-frames">Number of Frames</label>
+		<input type="number" id="num-of-frames" name="num-of-frames" value="1"></input>
 		<label for="framerate">Frame Rate</label>
 		<input type="number" id="framerate" name="framerate" value="20"></input>
 	</div>
 	<div id="context">
 		<div id="frame-1" class="frame active"><img id="imgRef" src="images/character_01.png"/></div>
-		<div id="frame-2" class="frame inactive"><img src="images/character_02.png"/></div>
-		<div id="frame-3" class="frame inactive"><img src="images/character_03.png"/></div>
-		<div id="frame-4" class="frame inactive"><img src="images/character_04.png"/></div>
-		<div id="frame-5" class="frame inactive"><img src="images/character_05.png"/></div>
-		<div id="frame-6" class="frame inactive"><img src="images/character_06.png"/></div>
-		<div id="frame-7" class="frame inactive"><img src="images/character_07.png"/></div>
-		<div id="frame-8" class="frame inactive"><img src="images/character_08.png"/></div>
-		<div id="frame-9" class="frame inactive"><img src="images/character_09.png"/></div>
-		<div id="frame-10" class="frame inactive"><img src="images/character_10.png"/></div>
-		<div id="frame-11" class="frame inactive"><img src="images/character_11.png"/></div>
-		<div id="frame-12" class="frame inactive"><img src="images/character_12.png"/></div>
-		<div id="frame-13" class="frame inactive"><img src="images/character_13.png"/></div>
-		<div id="frame-14" class="frame inactive"><img src="images/character_14.png"/></div>
-		<div id="frame-15" class="frame inactive"><img src="images/character_15.png"/></div>
-		<div id="frame-16" class="frame inactive"><img src="images/character_16.png"/></div>
-		<div id="frame-17" class="frame inactive"><img src="images/character_17.png"/></div>
-		<div id="frame-18" class="frame inactive"><img src="images/character_18.png"/></div>
-		<div id="frame-19" class="frame inactive"><img src="images/character_19.png"/></div>
-		<div id="frame-20" class="frame inactive"><img src="images/character_20.png"/></div>
-		<div id="frame-21" class="frame inactive"><img src="images/character_21.png"/></div>
-		<div id="frame-22" class="frame inactive"><img src="images/character_22.png"/></div>
-		<div id="frame-23" class="frame inactive"><img src="images/character_23.png"/></div>
-		<div id="frame-24" class="frame inactive"><img src="images/character_24.png"/></div>
 	</div>
-	<script>
-		img.onload = function()
+</body>
+<script>
+	maxFrames = document.getElementById("num-of-frames").value;
+	for(var i = 2; i <= maxFrames; i++)
+	{
+		if(i < 10)
 		{
-			width = this.width;
-			var difference = (document.getElementById("frame-1").offsetWidth - width);
-			document.getElementById("framerate").defaultValue = 20;
-			var fr = document.getElementById("framerate").value;
-			var frameTime = Math.floor( (1.0 / parseFloat(fr)) * 1000 );
-			document.getElementById("framerate").addEventListener("change", function()
+			document.getElementById("context").innerHTML += '<div id="frame-' + i + '" class="frame active"><img src="images/character_0' + i + '.png"/></div>';
+		}
+		else
+		{
+			document.getElementById("context").innerHTML += '<div id="frame-' + i + '" class="frame active"><img src="images/character_' + i + '.png"/></div>';
+		}
+	}
+</script>
+<script>
+	img.onload = function()
+	{
+		width = this.width;
+		var difference = (document.getElementById("frame-1").offsetWidth - width);
+		document.getElementById("framerate").defaultValue = 20;
+		var fr = document.getElementById("framerate").value;
+		var frameTime = Math.floor( (1.0 / parseFloat(fr)) * 1000 );
+		document.getElementById("framerate").addEventListener("change", function()
+		{
+			fr = document.getElementById("framerate").value;
+			if(fr <= 0)
 			{
-				fr = document.getElementById("framerate").value;
-				if(fr <= 0)
-				{
-					fr = 1;
-					document.getElementById("framerate").value = 1;
-				}
-				else if(fr >= 120)
-				{
-					fr = 120;
-					document.getElementById("framerate").value = 120;
-				}
-				frameTime = Math.floor( (1.0 / parseFloat(fr)) * 1000 );
-				clearInterval(interval);
-				interval = setInterval(function()
-				{
-					if(frame != 1) document.getElementById("frame-" + (frame-1)).style.display = "none";
-					else document.getElementById("frame-24").style.display = "none";
-					document.getElementById("frame-" + (frame)).style.display = "block";
-					document.getElementById("frame-" + (frame)).style.marginLeft = (difference / 2) + "px";
-					frame++;
-					if(frame > 24) frame = 1;
-				}, frameTime);
-			});
+				fr = 1;
+				document.getElementById("framerate").value = 1;
+			}
+			else if(fr >= 120)
+			{
+				fr = 120;
+				document.getElementById("framerate").value = 120;
+			}
+			frameTime = Math.floor( (1.0 / parseFloat(fr)) * 1000 );
+			clearInterval(interval);
 			interval = setInterval(function()
 			{
 				if(frame != 1) document.getElementById("frame-" + (frame-1)).style.display = "none";
-				else document.getElementById("frame-24").style.display = "none";
+				else document.getElementById("frame-" + maxFrames).style.display = "none";
 				document.getElementById("frame-" + (frame)).style.display = "block";
 				document.getElementById("frame-" + (frame)).style.marginLeft = (difference / 2) + "px";
 				frame++;
-				if(frame > 24) frame = 1;
+				if(frame > maxFrames) frame = 1;
 			}, frameTime);
-		}
-		img.src = 'images/character_01.png';
-	</script>
-</body>
+		});
+		document.getElementById("num-of-frames").addEventListener("change", function()
+		{
+			maxFrames = document.getElementById("num-of-frames").value;
+			frame = 1;
+			if(maxFrames <= 0)
+			{
+				maxFrames = 1;
+				document.getElementById("num-of-frames").value = 1;
+			}
+			else if(maxFrames >= 100)
+			{
+				maxFrames = 100;
+				document.getElementById("num-of-frames").value = 100;
+			}
+			document.getElementById("context").innerHTML = '<div id="frame-1" class="frame active"><img id="imgRef" src="images/character_01.png"/></div>';
+			for(var i = 2; i <= maxFrames; i++)
+			{
+				if(i < 10)
+				{
+					document.getElementById("context").innerHTML += '<div id="frame-' + i + '" class="frame active"><img src="images/character_0' + i + '.png"/></div>';
+				}
+				else
+				{
+					document.getElementById("context").innerHTML += '<div id="frame-' + i + '" class="frame active"><img src="images/character_' + i + '.png"/></div>';
+				}
+			}
+		});
+		interval = setInterval(function()
+		{
+			if(frame != 1) document.getElementById("frame-" + (frame-1)).style.display = "none";
+			else document.getElementById("frame-" + maxFrames).style.display = "none";
+			document.getElementById("frame-" + (frame)).style.display = "block";
+			document.getElementById("frame-" + (frame)).style.marginLeft = (difference / 2) + "px";
+			frame++;
+			if(frame > maxFrames) frame = 1;
+		}, frameTime);
+	}
+	if(maxFrames < 10)
+	{
+		img.src = 'images/character_0' + maxFrames + '.png';
+	}
+	else
+	{
+		img.src = 'images/character_' + maxFrames + '.png';
+	}
+</script>
 </html>
